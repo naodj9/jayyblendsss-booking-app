@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jayyblendsss - Premium Barber Shop</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f8f9fa;
+            overflow-x: hidden;
+        }
+        
+        .app-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .content-area {
+            flex: 1;
+            padding-bottom: 90px;
+        }
+        
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0 25px 0;
+            z-index: 1000;
+        }
+        
+        .tab-button {
+            background: none;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666;
+            font-family: inherit;
+        }
+        
+        .tab-button.active {
+            color: #667eea;
+        }
+        
+        .tab-button i {
+            font-size: 20px;
+        }
+        
+        .tab-button span {
+            font-size: 11px;
+            font-weight: 500;
+        }
+        
+        .tab-button:hover {
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        .view {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .view.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 500px;
+            background: linear-gradient(-45deg, #667eea, #764ba2, #667eea, #764ba2);
+            background-size: 400% 400%;
+            animation: gradientShift 6s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            font-family: inherit;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .hero-icon {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+        
+        .hero-icon i {
+            font-size: 15rem;
+            color: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .section {
+            padding: 5rem 5%;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: #4ecdc4;
+            margin-bottom: 1rem;
+        }
+        
+        .service-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .service-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stats-section {
+            padding: 5rem 5%;
+            background: #f8f9fa;
+        }
+        
+        .stats-grid {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .stat-card {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4ecdc4;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .container {
+            padding: 2rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .group-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .input-wrapper:focus-within {
+            border-color: #667eea;
+            background: white;
+        }
+        
+        .input-icon {
+            color: #667eea;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .input-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .input-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.2rem;
+        }
+        
+        .form-input {
+            border: none;
+            background: none;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            width: 100%;
+        }
+        
+        .form-input::placeholder {
+            color: #ccc;
+        }
+        
+        .submit-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            width: 100%;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .submit-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .success-message {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin: 2rem auto;
+            max-width: 500px;
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: #4ecdc4;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-icon {
+                display: none;
+            }
+            
+            .stats-grid {
+                gap: 2rem;
+                flex-wrap: wrap;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="content-area">
+            <!-- Home View -->
+            <div id="home" class="view active">
+                <div class="hero">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Jayyblendsss</h1>
+                        <p class="hero-subtitle">Premium cuts, professional service, unmatched style</p>
+                        <button class="cta-button" onclick="showView('booking')">
+                            <i class="fas fa-calendar-plus" style="margin-right: 10px;"></i>
+                            Book Your Appointment
+                        </button>
+                    </div>
+                    <div class="hero-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Our Services</h2>
+                    <div class="services-grid">
+                        <div class="service-card" onclick="showView('services')">
+                            <div class="service-icon">
+                                <i class="fas fa-cut"></i>
+                            </div>
+                            <h3 class="service-name">Temp Fades</h3>
+                            <p class="service-description">Clean temple fade cuts with precision styling</p>
+                            <span class="service-price">$20</span>
+                        </div>
+                        <div class="service-card" onclick="showView('services')">
+                            <div class="service-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <h3 class="service-name">First Timers</h3>
+                            <p class="service-description">Special introductory cut for new clients</p>
+                            <span class="service-price">$10</span>
+                        </div>
+                        <div class="service-card" onclick="showView('services')">
+                            <div class="service-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <h3 class="service-name">Fade with Beard</h3>
+                            <p class="service-description">Complete fade cut with professional beard trim</p>
+                            <span class="service-price">$25</span>
+                        </div>
+                        <div class="service-card" onclick="showView('services')">
+                            <div class="service-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h3 class="service-name">Premium Package</h3>
+                            <p class="service-description">Full service with hot towel treatment</p>
+                            <span class="service-price">$35</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-section">
+                    <h2 class="section-title">Why Choose Us</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3 class="stat-number">500+</h3>
+                            <p class="stat-label">Happy Clients</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 class="stat-number">3+</h3>
+                            <p class="stat-label">Years Experience</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 class="stat-number">100%</h3>
+                            <p class="stat-label">Satisfaction</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Services View -->
+            <div id="services" class="view">
+                <div class="container">
+                    <div style="text-align: center; margin-bottom: 3rem;">
+                        <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; background: linear-gradient(45deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Our Services</h1>
+                        <p style="font-size: 1.1rem; color: #666;">Professional cuts and styling for every occasion</p>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem;">
+                        <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(45deg, #667eea20, #764ba220); display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-cut" style="font-size: 1.5rem; color: #667eea;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Temp Fades</h3>
+                                    <p style="color: #666; font-size: 0.9rem;">Clean temple fade cuts with precision styling</p>
+                                    <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem;">
+                                        <span style="background: #667eea20; color: #667eea; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500;">30 min</span>
+                                        <span style="font-size: 1.3rem; font-weight: 700; color: #4ecdc4; margin-left: auto;">$20</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(45deg, #667eea20, #764ba220); display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-user-plus" style="font-size: 1.5rem; color: #667eea;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem; color: #333;">First Timers</h3>
+                                    <p style="color: #666; font-size: 0.9rem;">Special introductory cut for new clients</p>
+                                    <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem;">
+                                        <span style="background: #667eea20; color: #667eea; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500;">30 min</span>
+                                        <span style="font-size: 1.3rem; font-weight: 700; color: #4ecdc4; margin-left: auto;">$10</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(45deg, #667eea20, #764ba220); display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-user-tie" style="font-size: 1.5rem; color: #667eea;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Fade with Beard</h3>
+                                    <p style="color: #666; font-size: 0.9rem;">Complete fade cut with professional beard trim</p>
+                                    <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem;">
+                                        <span style="background: #667eea20; color: #667eea; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500;">45 min</span>
+                                        <span style="font-size: 1.3rem; font-weight: 700; color: #4ecdc4; margin-left: auto;">$25</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(45deg, #667eea20, #764ba220); display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-star" style="font-size: 1.5rem; color: #667eea;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem; color: #333;">Premium Package</h3>
+                                    <p style="color: #666; font-size: 0.9rem;">Full service with hot towel treatment</p>
+                                    <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem;">
+                                        <span style="background: #667eea20; color: #667eea; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500;">60 min</span>
+                                        <span style="font-size: 1.3rem; font-weight: 700; color: #4ecdc4; margin-left: auto;">$35</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="submit-button" onclick="showView('booking')" style="margin-top: 2rem;">
+                        <i class="fas fa-calendar-plus" style="margin-right: 10px;"></i>
+                        Book Your Appointment
+                    </button>
+                </div>
+            </div>
+
+            <!-- Booking View -->
+            <div id="booking" class="view">
+                <div class="form-container">
+                    <div style="text-align: center; margin-bottom: 3rem;">
+                        <div style="font-size: 3rem; color: #667eea; margin-bottom: 1rem;">
+                            <i class="fas fa-calendar-plus"></i>
+                        </div>
+                        <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; background: linear-gradient(45deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Book Your Appointment</h1>
+                        <p style="font-size: 1.1rem; color: #666;">Fill out the form below to schedule your visit</p>
+                    </div>
+
+                    <form id="bookingForm" onsubmit="handleBookingSubmit(event)">
+                        <div class="form-group">
+                            <h3 class="group-title">Personal Information</h3>
+                            <div class="input-wrapper">
+                                <div class="input-icon"><i class="fas fa-user"></i></div>
+                                <div class="input-content">
+                                    <label class="input-label">Full Name</label>
+                                    <input type="text" class="form-input" name="name" placeholder="Enter your full name" required>
+                                </div>
+                            </div>
+                            <div class="input-wrapper">
+                                <div class="input-icon"><i class="fas fa-phone"></i></div>
+                                <div class="input-content">
+                                    <label class="input-label">Phone Number</label>
+                                    <input type="tel" class="form-input" name="phone" placeholder="Enter your phone number" required>
+                                </div>
+                            </div>
+                            <div class="input-wrapper">
+                                <div class="input-icon"><i class="fas fa-envelope"></i></div>
+                                <div class="input-content">
+                                    <label class="input-label">Email</label>
+                                    <input type="email" class="form-input" name="email" placeholder="Enter your email" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h3 class="group-title">Service Selection</h3>
+                            <div class="input-wrapper">
+                                <div class="input-icon"><i class="fas fa-cut"></i></div>
+                                <div class="input-content">
+                                    <label class="input-label">Service</label>
+                                    <select class="form-input" name="service" required>
+                                        <option value="">Select a service</option>
+                                        <option value="temp-fades">Temp Fades - $20</option>
+                                        <option value="first-timers">First Timers - $10</option>
+                                        <option value="fade-with-beard">Fade with Beard - $25</option>
+                                        <option value="premium-package">Premium Package - $35</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h3 class="group-title">Date & Time</h3>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div class="input-wrapper">
+                                    <div class="input-icon"><i class="fas fa-calendar"></i></div>
+                                    <div class="input-content">
+                                        <label class="input-label">Date</label>
+                                        <input type="date" class="form-input" name="date" required>
+                                    </div>
+                                </div>
+                                <div class="input-wrapper">
+                                    <div class="input-icon"><i class="fas fa-clock"></i></div>
+                                    <div class="input-content">
+                                        <label class="input-label">Time</label>
+                                        <select class="form-input" name="time" required>
+                                            <option value="">Select time</option>
+                                            <option value="09:00">9:00 AM</option>
+                                            <option value="10:00">10:00 AM</option>
+                                            <option value="11:00">11:00 AM</option>
+                                            <option value="12:00">12:00 PM</option>
+                                            <option value="13:00">1:00 PM</option>
+                                            <option value="14:00">2:00 PM</option>
+                                            <option value="15:00">3:00 PM</option>
+                                            <option value="16:00">4:00 PM</option>
+                                            <option value="17:00">5:00 PM</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h3 class="group-title">Additional Notes (Optional)</h3>
+                            <textarea class="form-input" name="notes" placeholder="Any special requests or preferences..." style="min-height: 80px; padding: 1rem; background: #f8f9fa; border-radius: 10px; border: 2px solid transparent; resize: vertical;"></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-button">
+                            <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
+                            Book Appointment
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- About View -->
+            <div id="about" class="view">
+                <div class="container">
+                    <div style="text-align: center; margin-bottom: 3rem;">
+                        <div style="width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(45deg, #667eea30, #764ba230); display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem auto;">
+                            <i class="fas fa-user-circle" style="font-size: 5rem; color: #667eea;"></i>
+                        </div>
+                        <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; background: linear-gradient(45deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">About Jayyblendsss</h1>
+                        <p style="font-size: 1.1rem; color: #666;">Your trusted barber for premium cuts and professional service</p>
+                    </div>
+
+                    <div style="background: white; border-radius: 15px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+                        <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: #333;">Our Story</h2>
+                        <p style="color: #666; line-height: 1.8; margin-bottom: 1rem;">
+                            With years of experience in the barbering industry, Jayyblendsss has built a reputation for delivering exceptional cuts and outstanding customer service. Our passion for the craft shows in every detail.
+                        </p>
+                        <p style="color: #666; line-height: 1.8; margin-bottom: 1rem;">
+                            We specialize in modern cuts, classic styles, and everything in between. Every client leaves feeling confident and looking their best.
+                        </p>
+                        <p style="color: #666; line-height: 1.8;">
+                            We believe that a great haircut is more than just cutting hair – it's about understanding each client's unique style and helping them express their personality.
+                        </p>
+                    </div>
+
+                    <div style="display: flex; justify-content: center; gap: 4rem; margin: 3rem 0;">
+                        <div style="text-align: center; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); min-width: 150px;">
+                            <div style="font-size: 2rem; color: #667eea; margin-bottom: 1rem;"><i class="fas fa-users"></i></div>
+                            <h3 style="font-size: 2rem; font-weight: 700; color: #667eea; margin-bottom: 0.5rem;">500+</h3>
+                            <p style="color: #666; font-weight: 500; font-size: 0.9rem;">Happy Clients</p>
+                        </div>
+                        <div style="text-align: center; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); min-width: 150px;">
+                            <div style="font-size: 2rem; color: #667eea; margin-bottom: 1rem;"><i class="fas fa-calendar"></i></div>
+                            <h3 style="font-size: 2rem; font-weight: 700; color: #667eea; margin-bottom: 0.5rem;">3+</h3>
+                            <p style="color: #666; font-weight: 500; font-size: 0.9rem;">Years Experience</p>
+                        </div>
+                        <div style="text-align: center; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); min-width: 150px;">
+                            <div style="font-size: 2rem; color: #667eea; margin-bottom: 1rem;"><i class="fas fa-star"></i></div>
+                            <h3 style="font-size: 2rem; font-weight: 700; color: #667eea; margin-bottom: 0.5rem;">100%</h3>
+                            <p style="color: #666; font-weight: 500; font-size: 0.9rem;">Satisfaction</p>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 3rem 2rem; border-radius: 20px; margin-top: 3rem;">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Ready for your next cut?</h3>
+                        <button onclick="showView('booking')" style="background: rgba(255, 255, 255, 0.2); color: white; border: 2px solid white; border-radius: 25px; padding: 1rem 2rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: inherit;">
+                            <i class="fas fa-calendar-plus" style="margin-right: 10px;"></i>
+                            Book Your Appointment
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact View -->
+            <div id="contact" class="view">
+                <div class="container">
+                    <div style="text-align: center; margin-bottom: 3rem;">
+                        <div style="font-size: 4rem; color: #667eea; margin-bottom: 1rem;">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; background: linear-gradient(45deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Contact Us</h1>
+                        <p style="font-size: 1.1rem; color: #666;">Get in touch to book your appointment or ask any questions</p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+                        <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); cursor: pointer;" onclick="openDirections()">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                <div style="width: 50px; height: 50px; border-radius: 50%; background: #667eea20; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-map-marker-alt" style="color: #667eea; font-size: 1.3rem;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <h3 style="font-weight: 600; margin-bottom: 0.3rem; color: #333;">Location</h3>
+                                    <p style="color: #666; line-height: 1.6; white-space: pre-line;">123 Main Street
+Your City, State 12345</p>
+                                </div>
+                                <i class="fas fa-chevron-right" style="color: #ccc;"></i>
+                            </div>
+                        </div>
+
+                        <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); cursor: pointer;" onclick="callPhone()">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                <div style="width: 50px; height: 50px; border-radius: 50%; background: #667eea20; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-phone" style="color: #667eea; font-size: 1.3rem;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <h3 style="font-weight: 600; margin-bottom: 0.3rem; color: #333;">Phone</h3>
+                                    <p style="color: #666; line-height: 1.6;">(555) 123-4567</p>
+                                </div>
+                                <i class="fas fa-chevron-right" style="color: #ccc;"></i>
+                            </div>
+                        </div>
+
+                        <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); cursor: pointer;" onclick="sendEmail()">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                <div style="width: 50px; height: 50px; border-radius: 50%; background: #667eea20; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-envelope" style="color: #667eea; font-size: 1.3rem;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <h3 style="font-weight: 600; margin-bottom: 0.3rem; color: #333;">Email</h3>
+                                    <p style="color: #666; line-height: 1.6;">info@jayyblendsss.com</p>
+                                </div>
+                                <i class="fas fa-chevron-right" style="color: #ccc;"></i>
+                            </div>
+                        </div>
+
+                        <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                <div style="width: 50px; height: 50px; border-radius: 50%; background: #667eea20; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-clock" style="color: #667eea; font-size: 1.3rem;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <h3 style="font-weight: 600; margin-bottom: 0.3rem; color: #333;">Business Hours</h3>
+                                    <p style="color: #666; line-height: 1.6; white-space: pre-line;">Mon-Fri: 9AM-6PM
+Sat: 9AM-5PM
+Sun: Closed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                        <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); cursor: pointer;" onclick="showView('booking')">
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="width: 50px; height: 50px; border-radius: 50%; background: #667eea20; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-calendar-plus" style="color: #667eea; font-size: 1.3rem;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <h4 style="font-weight: 600; margin-bottom: 0.3rem; color: #333;">Book Appointment</h4>
+                                    <p style="color: #666; font-size: 0.9rem;">Schedule your next visit</p>
+                                </div>
+                                <i class="fas fa-chevron-right" style="color: #ccc;"></i>
+                            </div>
+                        </div>
+
+                        <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); cursor: pointer;" onclick="showView('services')">
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="width: 50px; height: 50px; border-radius: 50%; background: #4ecdc420; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-cut" style="color: #4ecdc4; font-size: 1.3rem;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <h4 style="font-weight: 600; margin-bottom: 0.3rem; color: #333;">View Services</h4>
+                                    <p style="color: #666; font-size: 0.9rem;">See all our services and pricing</p>
+                                </div>
+                                <i class="fas fa-chevron-right" style="color: #ccc;"></i>
+                            </div>
+                        </div>
+
+                        <div style="background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); cursor: pointer;" onclick="callPhone()">
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="width: 50px; height: 50px; border-radius: 50%; background: #ff6b6b20; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-phone" style="color: #ff6b6b; font-size: 1.3rem;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <h4 style="font-weight: 600; margin-bottom: 0.3rem; color: #333;">Call Now</h4>
+                                    <p style="color: #666; font-size: 0.9rem;">Speak with us directly</p>
+                                </div>
+                                <i class="fas fa-chevron-right" style="color: #ccc;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Bar -->
+        <div class="tab-bar">
+            <button class="tab-button active" onclick="showView('home')" data-view="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </button>
+            <button class="tab-button" onclick="showView('services')" data-view="services">
+                <i class="fas fa-cut"></i>
+                <span>Services</span>
+            </button>
+            <button class="tab-button" onclick="showView('booking')" data-view="booking">
+                <i class="fas fa-calendar-plus"></i>
+                <span>Book</span>
+            </button>
+            <button class="tab-button" onclick="showView('about')" data-view="about">
+                <i class="fas fa-user-circle"></i>
+                <span>About</span>
+            </button>
+            <button class="tab-button" onclick="showView('contact')" data-view="contact">
+                <i class="fas fa-phone"></i>
+                <span>Contact</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Set minimum date for booking (tomorrow)
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateInput = document.querySelector('input[name="date"]');
+            if (dateInput) {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                dateInput.min = tomorrow.toISOString().split('T')[0];
+            }
+        });
+
+        function showView(viewName) {
+            // Hide all views
+            document.querySelectorAll('.view').forEach(view => {
+                view.classList.remove('active');
+            });
+            
+            // Show selected view
+            document.getElementById(viewName).classList.add('active');
+            
+            // Update tab buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`[data-view="${viewName}"]`).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function handleBookingSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            // Simple validation
+            if (!data.name || !data.phone || !data.email || !data.service || !data.date || !data.time) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Show success message
+            const bookingView = document.getElementById('booking');
+            bookingView.innerHTML = `
+                <div class="success-message">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2 style="margin-bottom: 1rem; color: #333;">Booking Confirmed!</h2>
+                    <p style="color: #666; margin-bottom: 2rem;">
+                        Your appointment has been successfully booked. We will contact you shortly to confirm the details.
+                    </p>
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem;">
+                        <h4 style="margin-bottom: 1rem;">Booking Details</h4>
+                        <div style="text-align: left; display: flex; flex-direction: column; gap: 0.5rem;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Service:</span>
+                                <span>${data.service.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Date:</span>
+                                <span>${new Date(data.date).toLocaleDateString()}</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Time:</span>
+                                <span>${data.time}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="location.reload()" style="background: #667eea; color: white; border: none; border-radius: 25px; padding: 1rem 2rem; font-weight: 600; cursor: pointer; font-family: inherit;">
+                        Book Another Appointment
+                    </button>
+                </div>
+            `;
+        }
+
+        function callPhone() {
+            if (confirm('Would you like to call (555) 123-4567?')) {
+                window.open('tel:+15551234567');
+            }
+        }
+
+        function sendEmail() {
+            if (confirm('Would you like to send an email to info@jayyblendsss.com?')) {
+                window.open('mailto:info@jayyblendsss.com');
+            }
+        }
+
+        function openDirections() {
+            if (confirm('Would you like to open directions to our location?')) {
+                window.open('https://maps.google.com/?q=123+Main+Street,+Your+City,+State');
+            }
+        }
+    </script>
+</body>
+</html>
